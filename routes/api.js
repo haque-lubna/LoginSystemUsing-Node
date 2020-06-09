@@ -13,19 +13,27 @@ router.post('/login', function(req, res, next) {
     console.log('body', req.body);
     const { email, password } = req.body;
     console.log(email, password);
-    User.findOne({ email: email })
-    .then(function (data) {
-        console.log(data);
-        if(data && data.password === password) {
-            res.send('Success');
-        } else {
-            res.send('Failure');
-        }
-    })
-    .catch(function (err) {
-        console.log(err);
-        res.send('Failure');
-    })
+    console.log(isValidEmail(email));
+    if(isValidEmail(email) == false){
+      res.send('please enter a valid email!');
+    }
+    else{
+      User.findOne({ email: email })
+      .then(function (data) {
+          console.log(data);
+          if(data && data.password === password) {
+              // res.send('Success');
+              res.render('landing');
+          } else {
+              res.send('The email and/or password you specified are not correct!');
+          }
+      })
+      .catch(function (err) {
+          console.log(err);
+          res.send('The email and/or password you specified are not correct!');
+      })
+    }
+
 
 });
 

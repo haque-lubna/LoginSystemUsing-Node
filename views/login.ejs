@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login here</title> 
+<link href="style.css" rel="stylesheet" type="text/css">
+<title>Login here</title>
 </head>
 
 
 <body>
 <form method="post" action="/api/login">
-	<input type="text" name="email" placeholder = "Enter Your Email" />
-    <input type="password" name="password" placeholder = "Enter password"/>
-	<input type="submit" value="Login">
+	<input type="text" name="email" placeholder = "Enter Your Email" required/> <br>
+  <input type="password" name="password" placeholder = "Enter password" required/><br>
+	<input type="submit" value="Login" id = "button">
 </form>
- 
+
 </body>
 <script>
 	const isValidEmail = (email) => {
 		if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,63})+$/.test(email))
 			return true;
 		else return false;
-	}	
+	}
 </script>
 </html>
