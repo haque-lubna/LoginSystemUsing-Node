@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="style.css" rel="stylesheet" type="text/css">
+<title>Login here</title>
+</head>
+
+
+<body>
+	<div id='logged_in'>
+		<h1 id='success'>Successfully Logged In</h1>
+		<button id="logout">Logout</button>
+	</div>
+
+
+<form id='form'>
+	<p id="errorEmail"></p> <br>
+	<input id="email" placeholder="Enter Your Email" required/> <br>
+	<input type="password" id="password" placeholder="Enter password" required/><br>
+	<button id="login">Login</button>
+</form>
+
+</body>
+<script>
+	
+	document.getElementById("login").addEventListener("click", function (e){
+		e.preventDefault();
+	  const email = document.getElementById("email").value;
+	  const password = document.getElementById("password").value;
+    if(!email || !password) {
+      document.getElementById("errorEmail").innerText = "Empty password or empty email is not valid!";
+      return;
+    }
+	  fetch('/api/login', {
+		  method: 'POST',
+		  headers: {
+		    'Content-Type': 'application/json;charset=utf-8'
+		  },
+		  body: JSON.stringify({email, password})
+		}).then(response => response.json()
+		).then(data => {
+			if(data.email) {
+				localStorage.setItem('email', email);
+				window.location.reload()
+			} else {
+				document.getElementById("errorEmail").innerText = "Please enter valid email and password"
+			}
+		})
+		.catch((err) => console.log(erry))
+		// fetch('/api/register', {
+		//   method: 'POST',
+		//   headers: {
+		//     'Content-Type': 'application/json;charset=utf-8'
+		//   },
+		//   body: JSON.stringify({email, password})
+		// }).then((response) => {
+		// 	console.log(response.json());
+		// }).catch((err) => console.log(erry))
+
+
+	  // console.log(email.value, password.value);
+	});
+	document.getElementById("logout").addEventListener("click", function (e) {
+		localStorage.removeItem('email');
+		window.location.reload()
+	});
+
+	let email = localStorage.getItem('email');
+	if(email) {
+		console.log('Your are logged in!!');
+		document.getElementById("form").outerHTML = "";
+	} else {
+		document.getElementById("logged_in").outerHTML = "";
+		console.log('please log in!')
+	}
+</script>
+</html>

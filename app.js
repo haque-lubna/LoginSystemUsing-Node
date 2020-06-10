@@ -15,9 +15,7 @@ mongoose.connect('mongodb://localhost/db', {
 
 
 const indexRouter = require('./routes/index');
-const loginRouter = require('./routes/login');
 const apiRouter = require('./routes/api');
-const landingRouter = require('./routes/landing');
 
 const app = express();
 // view engine setup
@@ -31,9 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/login', loginRouter);
 app.use('/api', apiRouter);
-app.use('/landing', landingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
