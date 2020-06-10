@@ -12,11 +12,7 @@ const isValidEmail = (email) => {
 }
 // /api/login
 router.post('/login', function(req, res, next) {
-    console.log('query', req.query);
-    console.log('body', req.body);
     const { email, password } = req.body;
-    // console.log(email, password);
-    console.log(isValidEmail(email));
     if(isValidEmail(email) == false){
       res.send({ err: 'not a valid email!' });
     }
